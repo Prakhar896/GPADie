@@ -7,18 +7,24 @@
     <title>GPA Die - GPA Calculator Tool</title>
     <style>
         body {
-            font-size: 2em;
             text-align: center;
             font-family: monospace;
+        }
+
+        #statusLabel {
+            font-size: 2em;
         }
     </style>
 </head>
 <body>
     <p id="statusLabel">Click the button to get started.</p>
+
+    <div id="data"></div>
     <button onclick="main()">Calculate</button>
     
     <script>
         const statusLabel = document.getElementById("statusLabel")
+        const dataDiv = document.getElementById("data")
         
         function error() {
             statusLabel.innerText = "An error occurred or invalid input was provided."
@@ -38,6 +44,10 @@
 
                     numerator += moduleCredit * moduleGrade
                     denominator += moduleCredit
+
+                    var p = document.createElement('p')
+                    p.innerText = `Module ${i} --> Credits: ${moduleCredit}, Grade: ${moduleGrade}`
+                    dataDiv.appendChild(p)
                 }
 
                 const gpa = numerator / denominator
