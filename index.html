@@ -30,17 +30,40 @@
             statusLabel.innerText = "An error occurred or invalid input was provided."
         }
 
+        function quit() {
+            statusLabel.innerText = "Calculation was quit."
+        }
+
         function main() {
             statusLabel.innerText = "GPA calculation in progress..."
+            dataDiv.innerHTML = ""
 
             try {
-                const subjects = parseInt(prompt("Enter the number of subjects you have: "))
+                const subjectsInput = prompt("You can quit calculation at any time by typing 'q'. Enter the number of subjects you have: ")
+                if (subjectsInput.toLowerCase() == "q") {
+                    quit()
+                    return
+                }
+
+                const subjects = parseInt(subjectsInput)
                 
                 var numerator = 0.0
                 var denominator = 0.0
                 for (var i=1; i<=subjects; i++) {
-                    const moduleCredit = parseInt(prompt(`Enter credits of module ${i}:`))
-                    const moduleGrade = parseFloat(prompt(`Enter your (decimal, e.g 4.0) grade for module ${i}:`))
+                    const creditInput = prompt(`Enter credits of module ${i}:`)
+                    if (creditInput.toLowerCase() == "q") {
+                        quit()
+                        return
+                    }
+
+                    const gradeInput = prompt(`Enter your grade (decimal, e.g 4.0) for module ${i}:`)
+                    if (gradeInput.toLowerCase() == "q") {
+                        quit()
+                        return
+                    }
+
+                    const moduleCredit = parseInt(creditInput)
+                    const moduleGrade = parseFloat(gradeInput)
 
                     numerator += moduleCredit * moduleGrade
                     denominator += moduleCredit
